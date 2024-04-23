@@ -11,10 +11,27 @@ function ImageUpload() {
     setImage(event.target.files[0]);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (image) {
-      navigate('/text'); // Navigate to TextBlock component
+      // Create a FormData instance to send the uploaded file
+      const formData = new FormData();
+      formData.append('file', image);
+
+      try {
+        const response = await fetch('http://45.63.62.251:3000/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.text();
+        console.log(result);
+        alert('File uploaded successfully');
+        navigate('/text'); // Navigate to TextBlock component
+      } catch (error) {
+        console.error('Upload failed:', error);
+        alert('Upload failed');
+      }
     } else {
       alert('Please select an image to upload.');
     }
