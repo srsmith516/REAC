@@ -19,7 +19,7 @@ function ImageUpload() {
       formData.append('file', image);
 
       try {
-        const response = await fetch('http://45.63.62.251:3000/upload', {
+        const response = await fetch('https://worldofhealth.club/react/upload', {
           method: 'POST',
           body: formData,
         });
